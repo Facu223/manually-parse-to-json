@@ -1,10 +1,10 @@
-const button = document.querySelector("button");
+const button = document.querySelector("#button");
 
 const jsonParse = () => {
   // Declaración de variables
   const json = {};
-  const textarea = document.querySelector("textarea").value;
-  
+  const textarea = document.querySelector("#textarea").value;
+
   // Se quitan las comillas dobles de todo el String recibido
   const textAreaReplace = textarea.replace(/['"]+/g, "");
 
@@ -58,18 +58,18 @@ const jsonParse = () => {
       newText2.indexOf("]")
     );
 
-    // Otengo el primer atributo del primer elemento del arreglo
+    // Obtengo el primer atributo del primer elemento del arreglo
     obj1_prop1 = thirdProp
       .slice(thirdProp.indexOf(":") + 1, thirdProp.indexOf(","))
       .trim();
 
-    // Remueve la primera propiedad del objeto uno
+    // Remueve la primera propiedad del elemento uno del arreglo y el resto del string lo almacena en "removeFirstProp"
     let removeFirstProp = thirdProp.slice(
       thirdProp.indexOf(",") + 1,
       thirdProp.indexOf("}")
     );
 
-    //Obtengo el segundo atributo del segundo elemento del arreglo
+    // Obtengo el segundo atributo del primer elemento del arreglo
     obj1_prop2 = removeFirstProp
       .slice(
         removeFirstProp.indexOf(":") + 1,
@@ -77,17 +77,16 @@ const jsonParse = () => {
       )
       .trim();
 
-    // Extrae el segundo elemento del arreglo
+    // Obtengo el segundo elemento del arreglo
     const secondProp = newText.slice(
       newText.lastIndexOf("{"),
       newText.lastIndexOf("]")
     );
 
     // Obtengo el primer atributo del segundo elemento del arreglo
-    obj2_prop1 = secondProp.slice(
-      secondProp.indexOf(":") - 6,
-      secondProp.indexOf(",") - 8
-    );
+    obj2_prop1 = secondProp
+      .slice(secondProp.indexOf(":") + 1, secondProp.indexOf(","))
+      .trim();
 
     // Obtengo el segundo atributo del segundo elemento del arreglo
     obj2_prop2 = secondProp
@@ -112,18 +111,22 @@ const jsonParse = () => {
   const newText3 = newText2.slice(newText2.indexOf("]"), newText2.length);
 
   // Obtengo la cuarta propiedad
-  const forthProp = newText3.slice(
-    newText3.indexOf(":") + 1,
-    newText3.lastIndexOf(",")
-  );
-  forth_prop = forthProp.trim();
+  if (newText3.includes("prop")) {
+    const forthProp = newText3.slice(
+      newText3.indexOf(":") + 1,
+      newText3.lastIndexOf(",")
+    );
+    forth_prop = forthProp.trim();
+  }
 
   // Obtengo la quinta propiedad
-  const fifthProp = newText3.slice(
-    newText3.lastIndexOf(":") + 1,
-    newText3.lastIndexOf("}")
-  );
-  fifth_prop = fifthProp.trim();
+  if (newText3.includes("prop")) {
+    const fifthProp = newText3.slice(
+      newText3.lastIndexOf(":") + 1,
+      newText3.lastIndexOf("}")
+    );
+    fifth_prop = fifthProp.trim();
+  }
 
   // Relleno el objeto "json", declarado al principio del programa
   json.first_prop = String(first_prop);
