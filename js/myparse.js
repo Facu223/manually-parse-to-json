@@ -1,8 +1,8 @@
 const button = document.querySelector("#button");
+let json = {}
 
 const jsonParse = () => {
   // Declaración de variables
-  const json = {};
   const textarea = document.querySelector("#textarea").value;
 
   // Se quitan las comillas dobles de todo el String recibido
@@ -144,7 +144,7 @@ const jsonParse = () => {
   console.log(json);
 
   // Algunos ejemplos para verificar funcionalidad del programa
-  console.log(json.first_prop, json.forth_prop, json.third_prop[0]);
+  console.log(json.first_prop, json.forth_prop, json.third_prop);
 };
 
 button.addEventListener("click", jsonParse);
